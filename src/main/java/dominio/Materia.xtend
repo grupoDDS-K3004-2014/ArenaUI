@@ -3,25 +3,21 @@ package dominio
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.Entity
 
-//import java.util.Date
+@	Observable
 
-@Observable
-class Materia extends Entity{
-	String nombre
-	//Date anioCursada
-	//String profesorCursada
+class Materia extends Entity implements Cloneable{
+	@Property String nombreMateria
+	//@Property int anio
+	//@Property String profesorCursada
 	
-	//new(String nombre){
-		//this.nombre=nombre
-	//}
 	
-	def setNombre(String nombre){
-		this.nombre=nombre
+	override clone(){
+		super.clone()
 	}
 	
-	def getNombre(){
-		nombre
+	def validar() {
 	}
-	
+
 	
 }
+

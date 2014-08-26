@@ -8,17 +8,23 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Label
+import home.HomeMaterias
 
-class CrearMateriaWindow extends Dialog<Materia> {
+class CrearMateriaWindow extends EditarMateriaWindow {
 	
-	
-	new(WindowOwner owner, Materia model) {
-		super(owner, model)
-		this.delegate.setErrorViewer(this)
-	}
 	
 	new(WindowOwner owner) {
-		super(owner,new Materia)
+		super(owner, new Materia)
+		this.title="Agregar nueva materia"
+	}
+	
+	//override executeTask(){
+		//homeMaterias.create(modelObject)
+		//super.executeTask()
+		//}
+	
+	def create(Object object, Materia materia) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 	
@@ -28,7 +34,7 @@ class CrearMateriaWindow extends Dialog<Materia> {
 		new Label(form).text = "Nombre"
 		val txtNombre = new TextBox(form)
 		txtNombre.width = 500
-		txtNombre.bindValueToProperty("nombre")
+		txtNombre.bindValueToProperty("nombreMateria")
 
 	}
 
