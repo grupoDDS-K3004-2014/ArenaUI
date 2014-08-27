@@ -25,10 +25,6 @@ class CrearMateriaWindow extends EditarMateriaWindow {
 	
 	
 	
-	//def create(Object object, Materia materia) {
-		//throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	//}
-	
 	
 	override protected createFormPanel(Panel mainPanel) {
 		val form = new Panel(mainPanel)
@@ -49,11 +45,6 @@ class CrearMateriaWindow extends EditarMateriaWindow {
 		new Button(actions) //
 		.setCaption("Cancelar").onClick[|this.cancel]
 	}
-	
-	//override accept(){
-	//HomeMaterias.instance.actualizarMaterias(this.modelObject)
-	
-//}
 
 
 override def executeTask() {

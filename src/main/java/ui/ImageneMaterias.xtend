@@ -41,11 +41,7 @@ class ImageneMaterias extends SimpleWindow<BuscadorMaterias>{
 	}
 	
 	
-	/*def crearMateria() {
-		this.openDialog(new CrearMateriaWindow(this))
-	}
-	* 
-	*/
+	
 	
 	def openDialog(Dialog<?> dialog) {
 		dialog.onAccept[|modelObject.search]
@@ -53,23 +49,11 @@ class ImageneMaterias extends SimpleWindow<BuscadorMaterias>{
 	}
 	
 	override protected addActions(Panel accionPanel) {
-		//new Panel(mainPanel)
-		//.setLayout(new HorizontalLayout)
-		//accion crear nueva materia
+		
 		new Button(accionPanel)
 			.setCaption("Nueva Materia")
 			.onClick[|this.openDialog(new CrearMateriaWindow(this))]
 	}
-	
-/*	override protected createFormPanel(Panel mainPanel) {
-		var panel= new Panel(mainPanel)
-		panel.setLayout(new ColumnLayout(1))
-		var labelNombre= new Label(panel)
-		labelNombre.text="Nombre"
-		new TextBox(panel).bindValue("nombreMateria")
-		
-	}
- */
 	
 	def crearResultadosGrilla(Panel mainPanel) {
 		var table=new Table<Materia>(mainPanel,typeof(Materia))

@@ -10,9 +10,9 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.commons.utils.ApplicationContext
 import home.HomeMaterias
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.commons.utils.TransactionalAndObservable
-@TransactionalAndObservable
+import org.uqbar.commons.utils.Observable
+
+@Observable
 
 class EditarMateriaWindow extends Dialog<Materia>{
 	
@@ -20,7 +20,12 @@ class EditarMateriaWindow extends Dialog<Materia>{
 	
 	new(WindowOwner ownwer, Materia model){
 		super(ownwer,model)
-		//this.delegate.setErrorViewer(this)
+		//el clone y la creacion del mater para manejo manual de cambios
+		//generar una copia y guardarla como atributo auxiliar de la vista
+		//al aceptar le pasamos al home el modelo de la vista (que está modificado)
+		//Para aplicar esta estrategia el objeto de dominio tiene que ofrecer dos servicios:
+//clone: devuelve una copia del objeto original, implementando la interfaz Cloneable (y redefiniendo el método clone)
+//además del task
 	mater=model.clone() as Materia
 		
 	}
@@ -47,13 +52,13 @@ class EditarMateriaWindow extends Dialog<Materia>{
 		.setCaption("Cancelar").onClick[|this.cancel]
 	}
 
-/*
- * override def accept() {
-	HomeMaterias.instance.actualizar(this.modelObject)
+
+//agregadoLauASccept
+override accept(){
+	HomeMaterias.instance.crear("nombre")
+	HomeMaterias.instance.actualizarMaterias(this.modelObject)
 	super.accept
 }
-* 
-*/
 	
 	def getHomeMaterias(){
 	ApplicationContext.instance.getSingleton(typeof(Materia)) as HomeMaterias

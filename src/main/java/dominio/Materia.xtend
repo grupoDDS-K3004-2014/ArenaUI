@@ -8,20 +8,10 @@ import home.HomeMaterias
 
 class Materia extends Entity implements Cloneable{
 	@Property String nombreMateria
-	//@Property int anio
-	//@Property String profesorCursada
 	
-	
-	override clone(){
+override clone(){
 		super.clone()
 	}
-	
- def copyFrom(String copia){
-	}
-	
-	def validar() {
-	}
-
 	
 }
 

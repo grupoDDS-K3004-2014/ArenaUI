@@ -5,10 +5,9 @@ import dominio.Materia
 import org.apache.commons.collections15.Predicate
 import java.util.List
 import java.util.ArrayList
-import org.uqbar.commons.utils.TransactionalAndObservable
 import org.uqbar.commons.utils.Observable
 
-@TransactionalAndObservable
+@Observable
 class HomeMaterias extends CollectionBasedHome<Materia>{
 	private static HomeMaterias instance= null
 	
@@ -23,8 +22,8 @@ class HomeMaterias extends CollectionBasedHome<Materia>{
 		this.crear("Arquitectura")
 		this.crear("Ingenieria Y Sociedad")
 		this.crear("Fisica 1")
-		this.crear("Química")
-		this.crear("Legislación")
+		this.crear("Quimica")
+		this.crear("Legislacion")
 	}
 	
 	def void crear(String nombreMateria){
@@ -63,25 +62,13 @@ static def getInstance(){
 	instance
 }
 	
-	def actualizarMaterias(Materia materia) {
-		materia.nombreMateria=materia.toString
-		materias.add(materia)
-		println("Ahora materia tiene:" + materias)
+		def actualizarMaterias(Materia materia) {
+		if (!materias.contains(materia)){
+		}
+		println("Ahora materia tiene:" + materia.nombreMateria)
 		
 	}
-	
-	def actualizarAbonado(Materia materia) {
-			materias.add(materia)
-		println("Ahora materias tiene:" + materias)
-	}
-	
-	def List<Materia> getAbonados(Materia materia) {
-		materias.toList
-	}
-	
-	def actualizar(Materia materia) {
 		
-	}
 
 	
 	
