@@ -58,16 +58,8 @@ class CrearMateriaWindow extends EditarMateriaWindow {
 
 override def executeTask() {
     
-  HomeMaterias.instance.create(this.modelObject)  
+  getHomeMaterias().create(modelObject)  
   super.executeTask()
 }
-
-def getHomeMateria(){
-	ApplicationContext.instance.getSingleton(typeof(Materia))
-}
-	
-	
-	
-
 
 }

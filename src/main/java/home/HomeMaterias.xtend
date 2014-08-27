@@ -64,8 +64,8 @@ static def getInstance(){
 }
 	
 	def actualizarMaterias(Materia materia) {
-		if (!materias.contains(materia)){
-		}
+		materia.nombreMateria=materia.toString
+		materias.add(materia)
 		println("Ahora materia tiene:" + materias)
 		
 	}

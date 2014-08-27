@@ -14,14 +14,14 @@ import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.commons.utils.TransactionalAndObservable
 @TransactionalAndObservable
 
-class EditarMateriaWindow extends TransactionalDialog<Materia>{
+class EditarMateriaWindow extends Dialog<Materia>{
 	
-	//Materia mater 
+	Materia mater 
 	
 	new(WindowOwner ownwer, Materia model){
 		super(ownwer,model)
-		this.delegate.setErrorViewer(this)
-		//mater=model.clone() as Materia
+		//this.delegate.setErrorViewer(this)
+	mater=model.clone() as Materia
 		
 	}
 	
@@ -47,11 +47,17 @@ class EditarMateriaWindow extends TransactionalDialog<Materia>{
 		.setCaption("Cancelar").onClick[|this.cancel]
 	}
 
-override def accept() {
+/*
+ * override def accept() {
 	HomeMaterias.instance.actualizar(this.modelObject)
 	super.accept
 }
+* 
+*/
 	
+	def getHomeMaterias(){
+	ApplicationContext.instance.getSingleton(typeof(Materia)) as HomeMaterias
+}
 	
 
 
