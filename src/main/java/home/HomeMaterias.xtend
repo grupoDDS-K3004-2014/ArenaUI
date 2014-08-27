@@ -20,14 +20,14 @@ class HomeMaterias extends CollectionBasedHome<Materia>{
 	}
 	
 	def void init() {
-		this.create("Arquitectura")
-		this.create("Ingenieria Y Sociedad")
-		this.create("Fisica 1")
-		this.create("Química")
-		this.create("Legislación")
+		this.crear("Arquitectura")
+		this.crear("Ingenieria Y Sociedad")
+		this.crear("Fisica 1")
+		this.crear("Química")
+		this.crear("Legislación")
 	}
 	
-	def void create(String nombreMateria){
+	def void crear(String nombreMateria){
 		var materia=new Materia
 		materia.nombreMateria=nombreMateria
 		this.create(materia)
@@ -77,6 +77,10 @@ static def getInstance(){
 	
 	def List<Materia> getAbonados(Materia materia) {
 		materias.toList
+	}
+	
+	def actualizar(Materia materia) {
+		
 	}
 
 	
