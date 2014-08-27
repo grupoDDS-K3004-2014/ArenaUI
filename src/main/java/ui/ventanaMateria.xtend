@@ -5,6 +5,7 @@ import dominio.Materia
 import home.HomeMaterias
 import org.uqbar.commons.utils.ApplicationContext
 
+
 class VentanaMateria extends Application{
 	
 	override protected createMainWindow() {

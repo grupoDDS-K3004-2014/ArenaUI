@@ -3,16 +3,16 @@ package home
 import org.uqbar.commons.model.CollectionBasedHome
 import dominio.Materia
 import org.apache.commons.collections15.Predicate
-import org.uqbar.commons.utils.Observable
 import java.util.List
 import java.util.ArrayList
+import org.uqbar.commons.utils.TransactionalAndObservable
+import org.uqbar.commons.utils.Observable
 
-@Observable
-
+@TransactionalAndObservable
 class HomeMaterias extends CollectionBasedHome<Materia>{
 	private static HomeMaterias instance= null
 	
-	List<Materia> materias
+	@Property List<Materia> materias
 	
 	new(){ 
 		materias= new ArrayList<Materia>
@@ -20,14 +20,14 @@ class HomeMaterias extends CollectionBasedHome<Materia>{
 	}
 	
 	def void init() {
-		this.crear("Arquitectura")
-		this.crear("Ingenieria Y Sociedad")
-		this.crear("Fisica 1")
-		this.crear("Química")
-		this.crear("Legislación")
+		this.create("Arquitectura")
+		this.create("Ingenieria Y Sociedad")
+		this.create("Fisica 1")
+		this.create("Química")
+		this.create("Legislación")
 	}
 	
-	def void crear(String nombreMateria){
+	def void create(String nombreMateria){
 		var materia=new Materia
 		materia.nombreMateria=nombreMateria
 		this.create(materia)
@@ -64,22 +64,21 @@ static def getInstance(){
 }
 	
 	def actualizarMaterias(Materia materia) {
-		
-		materias.add(materia)
+		if (!materias.contains(materia)){
+		}
 		println("Ahora materia tiene:" + materias)
 		
 	}
 	
 	def actualizarAbonado(Materia materia) {
-		if (materia.nombreMateria == null) {
-			// es un alta
-			materia.create()
 			materias.add(materia)
-			return materias
-		} 
 		println("Ahora materias tiene:" + materias)
 	}
 	
+	def List<Materia> getAbonados(Materia materia) {
+		materias.toList
+	}
+
 	
 	
 }

@@ -10,8 +10,11 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.commons.utils.ApplicationContext
 import home.HomeMaterias
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.commons.utils.TransactionalAndObservable
+@TransactionalAndObservable
 
-class EditarMateriaWindow extends Dialog<Materia>{
+class EditarMateriaWindow extends TransactionalDialog<Materia>{
 	
 	//Materia mater 
 	
@@ -44,12 +47,12 @@ class EditarMateriaWindow extends Dialog<Materia>{
 		.setCaption("Cancelar").onClick[|this.cancel]
 	}
 
-override accept(){
-	HomeMaterias.instance.actualizarMaterias(this.modelObject)
+override def accept() {
+	HomeMaterias.instance.actualizar(this.modelObject)
 	super.accept
 }
 	
-	def getHomeMaterias(){
-		ApplicationContext.instance.getSingleton(typeof(HomeMaterias))
-	}
+	
+
+
 }

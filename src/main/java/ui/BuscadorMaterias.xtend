@@ -5,9 +5,9 @@ import java.util.List
 import java.util.ArrayList
 import org.uqbar.commons.utils.ApplicationContext
 import home.HomeMaterias
-import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.utils.TransactionalAndObservable
 
-@Observable
+@TransactionalAndObservable
 class BuscadorMaterias {
 	@Property String nombreMateria
 	@Property List<Materia> materias

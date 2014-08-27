@@ -1,9 +1,10 @@
 package dominio
 
-import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.TransactionalAndObservable
+import home.HomeMaterias
 
-@	Observable
+@TransactionalAndObservable
 
 class Materia extends Entity implements Cloneable{
 	@Property String nombreMateria
@@ -13,6 +14,9 @@ class Materia extends Entity implements Cloneable{
 	
 	override clone(){
 		super.clone()
+	}
+	
+ def copyFrom(String copia){
 	}
 	
 	def validar() {

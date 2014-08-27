@@ -1,5 +1,6 @@
 package ui
 
+
 import dominio.Materia
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
@@ -9,6 +10,10 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Label
 import home.HomeMaterias
+import org.uqbar.commons.utils.TransactionalAndObservable
+import org.uqbar.commons.utils.ApplicationContext
+
+@TransactionalAndObservable
 
 class CrearMateriaWindow extends EditarMateriaWindow {
 	
@@ -18,14 +23,11 @@ class CrearMateriaWindow extends EditarMateriaWindow {
 		this.title="Agregar nueva materia"
 	}
 	
-	//override executeTask(){
-		//homeMaterias.create(modelObject)
-		//super.executeTask()
-		//}
 	
-	def create(Object object, Materia materia) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+	
+	//def create(Object object, Materia materia) {
+		//throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	//}
 	
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -48,5 +50,24 @@ class CrearMateriaWindow extends EditarMateriaWindow {
 		.setCaption("Cancelar").onClick[|this.cancel]
 	}
 	
+	//override accept(){
+	//HomeMaterias.instance.actualizarMaterias(this.modelObject)
 	
+//}
+
+
+override def executeTask() {
+    
+  HomeMaterias.instance.create(this.modelObject)  
+  super.executeTask()
+}
+
+def getHomeMateria(){
+	ApplicationContext.instance.getSingleton(typeof(Materia))
+}
+	
+	
+	
+
+
 }
