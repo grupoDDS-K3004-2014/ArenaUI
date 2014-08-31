@@ -1,110 +1,105 @@
 package home;
 
 import com.google.common.base.Objects;
-import dominio.Materia;
+import domain.Materia;
+import domain.Nota;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections15.Predicate;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.uqbar.commons.model.CollectionBasedHome;
+import org.uqbar.commons.model.UserException;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
 @SuppressWarnings("all")
 public class HomeMaterias extends CollectionBasedHome<Materia> {
-  private static HomeMaterias instance = null;
-  
-  private List<Materia> materias;
-  
   public HomeMaterias() {
-    ArrayList<Materia> _arrayList = new ArrayList<Materia>();
-    this.materias = _arrayList;
     this.init();
   }
   
   public void init() {
-    this.crear("Arquitectura");
-    this.crear("Ingenieria Y Sociedad");
-    this.crear("Fisica 1");
-    this.crear("Química");
-    this.crear("Legislación");
+    ArrayList<Nota> notas = new ArrayList<Nota>();
+    Nota _nota = new Nota("20/10/2014", "1 Parcial", Boolean.valueOf(true));
+    notas.add(_nota);
+    this.create("Algoritmos", Integer.valueOf(2004), Boolean.valueOf(false), "Sarlanga", "1c", notas);
+    ArrayList<Nota> _arrayList = new ArrayList<Nota>();
+    notas = _arrayList;
+    Nota _nota_1 = new Nota("30/12/2099", "Tp", Boolean.valueOf(true));
+    notas.add(_nota_1);
+    this.create("Fisica II", Integer.valueOf(2011), Boolean.valueOf(true), "Monzón", "A", notas);
   }
   
-  public void crear(final String nombreMateria) {
+  public void create(final String nombreMateria, final Integer añoCursada2, final Boolean finalAprobado2, final String profesor2, final String ubicacion2, final ArrayList<Nota> notas2) {
     Materia materia = new Materia();
-    materia.setNombreMateria(nombreMateria);
+    materia.setNombre(nombreMateria);
+    materia.setAñoCursada(añoCursada2);
+    materia.setFinalAprobado(finalAprobado2);
+    materia.setProfesor(profesor2);
+    materia.setUbicacion(ubicacion2);
+    materia.setNotas(notas2);
     this.create(materia);
-    this.materias.add(materia);
   }
   
-  public Class<Materia> getEntityType() {
-    return Materia.class;
+  public void validateCreate(final Materia materia) {
+    materia.validate();
+    this.validarMateriasDuplicadas(materia);
+  }
+  
+  public void validarMateriasDuplicadas(final Materia materia) {
+    List<Materia> _allInstances = this.allInstances();
+    final Function1<Materia, Boolean> _function = new Function1<Materia, Boolean>() {
+      public Boolean apply(final Materia materia2) {
+        String _nombre = materia.getNombre();
+        String _nombre_1 = materia2.getNombre();
+        return Boolean.valueOf(HomeMaterias.this.match(_nombre, _nombre_1));
+      }
+    };
+    Iterable<Materia> _filter = IterableExtensions.<Materia>filter(_allInstances, _function);
+    final List<Materia> lista = IterableExtensions.<Materia>toList(_filter);
+    boolean _isEmpty = lista.isEmpty();
+    boolean _not = (!_isEmpty);
+    if (_not) {
+      String _nombre = materia.getNombre();
+      String _plus = ("Ya existe una materia con el nombre " + _nombre);
+      throw new UserException(_plus);
+    }
+  }
+  
+  public boolean match(final Object expectedValue, final Object realValue) {
+    boolean _xblockexpression = false;
+    {
+      boolean _equals = Objects.equal(expectedValue, null);
+      if (_equals) {
+        return true;
+      }
+      boolean _equals_1 = Objects.equal(realValue, null);
+      if (_equals_1) {
+        return false;
+      }
+      String _string = realValue.toString();
+      String _lowerCase = _string.toLowerCase();
+      String _string_1 = expectedValue.toString();
+      String _lowerCase_1 = _string_1.toLowerCase();
+      _xblockexpression = _lowerCase.contains(_lowerCase_1);
+    }
+    return _xblockexpression;
+  }
+  
+  public Predicate<Materia> getCriterio(final Materia example) {
+    return null;
   }
   
   public Materia createExample() {
     return new Materia();
   }
   
-  protected Predicate<Materia> getCriterio(final Materia example) {
-    return null;
+  public Class<Materia> getEntityType() {
+    return Materia.class;
   }
   
-  public List<Materia> search(final String nombre) {
-    List<Materia> _allInstances = this.allInstances();
-    final Function1<Materia,Boolean> _function = new Function1<Materia,Boolean>() {
-      public Boolean apply(final Materia materia) {
-        String _nombreMateria = materia.getNombreMateria();
-        return Boolean.valueOf(HomeMaterias.this.match(_nombreMateria));
-      }
-    };
-    Iterable<Materia> _filter = IterableExtensions.<Materia>filter(_allInstances, _function);
-    return IterableExtensions.<Materia>toList(_filter);
-  }
-  
-  public boolean match(final String nombre) {
-    String _string = nombre.toString();
-    String _lowerCase = _string.toLowerCase();
-    String _string_1 = nombre.toString();
-    String _lowerCase_1 = _string_1.toLowerCase();
-    return _lowerCase.contains(_lowerCase_1);
-  }
-  
-  public static HomeMaterias getInstance() {
-    HomeMaterias _xblockexpression = null;
-    {
-      boolean _equals = Objects.equal(HomeMaterias.instance, null);
-      if (_equals) {
-        HomeMaterias _homeMaterias = new HomeMaterias();
-        HomeMaterias.instance = _homeMaterias;
-      }
-      _xblockexpression = HomeMaterias.instance;
-    }
-    return _xblockexpression;
-  }
-  
-  public String actualizarMaterias(final Materia materia) {
-    String _xblockexpression = null;
-    {
-      this.materias.add(materia);
-      _xblockexpression = InputOutput.<String>println(("Ahora materia tiene:" + this.materias));
-    }
-    return _xblockexpression;
-  }
-  
-  public Object actualizarAbonado(final Materia materia) {
-    String _xblockexpression = null;
-    {
-      String _nombreMateria = materia.getNombreMateria();
-      boolean _equals = Objects.equal(_nombreMateria, null);
-      if (_equals) {
-        this.create(materia);
-        this.materias.add(materia);
-        return this.materias;
-      }
-      _xblockexpression = InputOutput.<String>println(("Ahora materias tiene:" + this.materias));
-    }
-    return _xblockexpression;
+  public List<Materia> getMaterias() {
+    return this.allInstances();
   }
 }

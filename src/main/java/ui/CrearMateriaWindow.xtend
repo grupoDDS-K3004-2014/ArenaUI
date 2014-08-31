@@ -1,56 +1,46 @@
 package ui
 
-
-import dominio.Materia
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.Label
-import home.HomeMaterias
-import org.uqbar.commons.utils.TransactionalAndObservable
 import org.uqbar.commons.utils.ApplicationContext
+import domain.Materia
+import home.HomeMaterias
 
-@TransactionalAndObservable
+class CrearMateriaWindow extends Dialog<Materia> {
 
-class CrearMateriaWindow extends EditarMateriaWindow {
-	
-	
-	new(WindowOwner owner) {
-		super(owner, new Materia)
-		this.title="Agregar nueva materia"
+	new(WindowOwner parent) {
+		super(parent, new Materia)
 	}
-	
-	
-	
-	
+
+	override def createMainTemplate(Panel mainPanel) {
+		title = "Agregar materia nueva"
+		taskDescription = "Ingrese el nombre de la materia nueva"
+		super.createMainTemplate(mainPanel)
+	}
+
 	override protected createFormPanel(Panel mainPanel) {
-		val form = new Panel(mainPanel)
-		form.layout = new ColumnLayout(2)
-		new Label(form).text = "Nombre"
-		val txtNombre = new TextBox(form)
-		txtNombre.width = 500
-		txtNombre.bindValueToProperty("nombreMateria")
+
+		new TextBox(mainPanel).bindValueToProperty("nombre")
 
 	}
 
+	override executeTask() {
+		homeMaterias.create(modelObject)
+		super.executeTask()
+	}
 
 	override protected void addActions(Panel actions) {
-		new Button(actions).setCaption("Aceptar").onClick [ |
-			this.accept
-		].setAsDefault.disableOnError
 
-		new Button(actions) //
-		.setCaption("Cancelar").onClick[|this.cancel]
+		new Button(actions).setCaption("Aceptar").onClick[|this.accept].setAsDefault.disableOnError
+
+		new Button(actions).setCaption("Cancelar").onClick[|this.cancel]
 	}
 
-
-override def executeTask() {
-    
-  getHomeMaterias().create(modelObject)  
-  super.executeTask()
-}
+	def HomeMaterias getHomeMaterias() {
+		ApplicationContext.instance.getSingleton(typeof(Materia))
+	}
 
 }

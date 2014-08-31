@@ -1,36 +1,38 @@
 package ui;
 
-import dominio.Materia;
-import org.uqbar.arena.layout.ColumnLayout;
+import domain.Materia;
+import home.HomeMaterias;
 import org.uqbar.arena.widgets.Button;
-import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.commons.utils.ApplicationContext;
 import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
-import ui.EditarMateriaWindow;
 
 @SuppressWarnings("all")
-public class CrearMateriaWindow extends EditarMateriaWindow {
-  public CrearMateriaWindow(final WindowOwner owner) {
-    super(owner, new Materia());
-    this.setTitle("Agregar nueva materia");
+public class CrearMateriaWindow extends Dialog<Materia> {
+  public CrearMateriaWindow(final WindowOwner parent) {
+    super(parent, new Materia());
   }
   
-  public void create(final Object object, final Materia materia) {
-    throw new UnsupportedOperationException("TODO: auto-generated method stub");
+  public void createMainTemplate(final Panel mainPanel) {
+    this.setTitle("Agregar materia nueva");
+    this.setTaskDescription("Ingrese el nombre de la materia nueva");
+    super.createMainTemplate(mainPanel);
   }
   
   protected void createFormPanel(final Panel mainPanel) {
-    final Panel form = new Panel(mainPanel);
-    ColumnLayout _columnLayout = new ColumnLayout(2);
-    form.setLayout(_columnLayout);
-    Label _label = new Label(form);
-    _label.setText("Nombre");
-    final TextBox txtNombre = new TextBox(form);
-    txtNombre.setWidth(500);
-    txtNombre.<ControlBuilder>bindValueToProperty("nombreMateria");
+    TextBox _textBox = new TextBox(mainPanel);
+    _textBox.<ControlBuilder>bindValueToProperty("nombre");
+  }
+  
+  public void executeTask() {
+    HomeMaterias _homeMaterias = this.getHomeMaterias();
+    Materia _modelObject = this.getModelObject();
+    _homeMaterias.create(_modelObject);
+    super.executeTask();
   }
   
   protected void addActions(final Panel actions) {
@@ -52,5 +54,10 @@ public class CrearMateriaWindow extends EditarMateriaWindow {
       }
     };
     _setCaption_1.onClick(_function_1);
+  }
+  
+  public HomeMaterias getHomeMaterias() {
+    ApplicationContext _instance = ApplicationContext.getInstance();
+    return _instance.<HomeMaterias>getSingleton(Materia.class);
   }
 }

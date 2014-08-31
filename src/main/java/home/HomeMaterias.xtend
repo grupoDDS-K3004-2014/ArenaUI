@@ -1,75 +1,79 @@
 package home
 
-import org.uqbar.commons.model.CollectionBasedHome
-import dominio.Materia
-import org.apache.commons.collections15.Predicate
-import java.util.List
-import java.util.ArrayList
+import domain.Materia
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.CollectionBasedHome
+import java.util.List
+import org.apache.commons.collections15.Predicate;
+import org.uqbar.commons.model.UserException
+
+import java.util.ArrayList
+import domain.Nota
 
 @Observable
-class HomeMaterias extends CollectionBasedHome<Materia>{
-	private static HomeMaterias instance= null
-	
-	@Property List<Materia> materias
-	
-	new(){ 
-		materias= new ArrayList<Materia>
-		init()
+class HomeMaterias extends CollectionBasedHome<Materia> {
+
+	new() {
+		this.init
 	}
-	
+
 	def void init() {
-		this.crear("Arquitectura")
-		this.crear("Ingenieria Y Sociedad")
-		this.crear("Fisica 1")
-		this.crear("Quimica")
-		this.crear("Legislacion")
+		var notas = new ArrayList
+		notas.add(new Nota("20/10/2014", "1 Parcial", true))
+		this.create("Algoritmos", 2004, false, "Sarlanga", "1c", notas)
+		notas = new ArrayList
+		notas.add(new Nota("30/12/2099", "Tp", true))
+		this.create("Fisica II", 2011, true, "Monzón", "A", notas)
 	}
-	
-	def void crear(String nombreMateria){
-		var materia=new Materia
-		materia.nombreMateria=nombreMateria
+
+	def void create(String nombreMateria, Integer añoCursada2, Boolean finalAprobado2, String profesor2,
+		String ubicacion2, ArrayList<Nota> notas2) {
+		var materia = new Materia
+		materia.nombre = nombreMateria
+		materia.añoCursada = añoCursada2
+		materia.finalAprobado = finalAprobado2
+		materia.profesor = profesor2
+		materia.ubicacion = ubicacion2
+		materia.notas = notas2
 		this.create(materia)
-		materias.add(materia)
-		
-	}
-	
-
-override def Class<Materia> getEntityType(){
-	typeof(Materia)
-}
-
-override createExample(){
-	new Materia
-}
-
-override protected Predicate<Materia> getCriterio(Materia example) {
-        null
-    }
-	
-	def search(String nombre) {
-		allInstances.filter[materia|this.match(materia.nombreMateria)].toList
-	}
-	
-	def match(String nombre) {
-		nombre.toString().toLowerCase().contains(nombre.toString().toLowerCase())
 	}
 
-static def getInstance(){
-	if (instance==null){
-		instance=new HomeMaterias
+	override void validateCreate(Materia materia) {
+		materia.validate()
+		this.validarMateriasDuplicadas(materia)
 	}
-	instance
-}
-	
-		def actualizarMaterias(Materia materia) {
-		if (!materias.contains(materia)){
+
+	def validarMateriasDuplicadas(Materia materia) {
+		val lista = allInstances.filter[materia2|this.match(materia.nombre, materia2.nombre)].toList
+		if (!lista.isEmpty) {
+			throw new UserException("Ya existe una materia con el nombre " + materia.nombre)
 		}
-		println("Ahora materia tiene:" + materia.nombreMateria)
-		
 	}
-		
 
-	
-	
+	def match(Object expectedValue, Object realValue) {
+		if (expectedValue == null) {
+			return true
+		}
+		if (realValue == null) {
+			return false
+		}
+		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
+	}
+
+	override def Predicate<Materia> getCriterio(Materia example) {
+		null
+	}
+
+	override createExample() {
+		new Materia
+	}
+
+	override getEntityType() {
+		typeof(Materia)
+	}
+
+	def List<Materia> getMaterias() {
+		allInstances
+	}
+
 }
