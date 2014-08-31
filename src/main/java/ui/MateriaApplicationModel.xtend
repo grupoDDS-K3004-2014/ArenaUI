@@ -9,7 +9,7 @@ import java.io.Serializable
 import domain.Materia
 import domain.Nota
 import domain.Ubicacion
-import home.HomeUbicacion
+
 
 @Observable
 class MateriaApplicationModel implements Serializable {
@@ -17,11 +17,15 @@ class MateriaApplicationModel implements Serializable {
 	@Property List<Materia> materias
 	@Property Materia materiaSeleccionada
 	@Property Nota notaSeleccionada
-	@Property List<Ubicacion> posiblesUbicaciones
+	@Property ArrayList<Ubicacion> ubicaciones= new ArrayList
 
 	new(){
 		super()
-		posiblesUbicaciones = new HomeUbicacion().ubicaciones
+		ubicaciones.add(new Ubicacion("1er cuatrimestre", 1))
+		ubicaciones.add(new Ubicacion("2do cuatrimestre", 1))
+		ubicaciones.add(new Ubicacion("1er cuatrimestre", 2))
+		ubicaciones.add(new Ubicacion("2do cuatrimestre", 2))
+		ubicaciones.add(new Ubicacion("1er cuatrimestre", 3))
 	}
 	
 

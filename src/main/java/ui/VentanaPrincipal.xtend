@@ -2,6 +2,7 @@ package ui
 
 import domain.Materia
 import domain.Nota
+import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -16,18 +17,24 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
+
 class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 
+	
 	new(WindowOwner parent) {
-		super(parent, new MateriaApplicationModel)
+		super(parent, new MateriaApplicationModel)	
 
 	}
 
 	/*---------------------------Principal ---------------------------*/
 	override def createMainTemplate(Panel mainPanel) {
+
 		title = "Seguidor de Carrera"
+
 		super.createMainTemplate(mainPanel)
+
 		modelObject.conseguirMaterias()
+
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -110,8 +117,15 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 		new Label(subPanel).setText("Ubicación materia:")
 		val selector = new Selector(subPanel)
 		selector.setWidth(140)
-		selector.bindItemsToProperty("posiblesUbicaciones")
+		selector.bindItemsToProperty("ubicaciones")
 		selector.bindValueToProperty("materiaSeleccionada.ubicacion")
+
+	/*val selectorUbicacion = new Selector<Ubicacion>(subPanel)
+		selectorUbicacion.allowNull(false)
+		selectorUbicacion.bindValueToProperty("materia.ubicacion")
+		var propiedadModelos = selectorUbicacion.bindItems(new ObservableProperty(homeUbicacion, "ubicaciones"
+		))
+		propiedadModelos.adapter = new PropertyAdapter(typeof(Ubicacion), "descripcionEntera")*/
 	}
 
 	def crearWidgetProfesor(Panel panel) {
@@ -149,9 +163,13 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 
 		val subPanel = new Panel(panel)
 		subPanel.setLayout(new ColumnLayout(3))
-		new Button(subPanel).setCaption("Editar").onClick[|].setWidth(80) //this.editarNota] feature not tested
 
-		//new Button(panel4).setCaption("+").onClick[|this.crearNota].setWidth(80)
-		new Button(subPanel).setCaption("-").onClick[|modelObject.eliminarNotaSeleccionada].setWidth(80)
+		new Button(subPanel).setCaption("+").onClick[|].setWidth(80)
+		new Button(subPanel).setCaption("-").onClick[|modelObject.eliminarNotaSeleccionada].setWidth(80).
+			bindEnabled(new NotNullObservable("notaSeleccionada"))
+
+		new Button(subPanel).setCaption("Editar").onClick[|editarNota].setWidth(80).bindEnabled(
+			new NotNullObservable("notaSeleccionada"))
+
 	}
 }

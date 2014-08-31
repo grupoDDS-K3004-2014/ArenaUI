@@ -9,7 +9,7 @@ import org.uqbar.commons.utils.Observable
 class Materia extends Entity {
 
 	@Property String nombre
-	@Property Integer añoCursada
+	@Property String añoCursada
 	@Property Boolean finalAprobado
 	@Property String profesor
 	@Property String ubicacion
@@ -27,5 +27,7 @@ def eliminarNota(Nota nota) {
 		notasAux.remove(nota)
 		notas = notasAux
 	}
+	
+	
 
 }

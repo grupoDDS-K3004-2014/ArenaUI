@@ -4,7 +4,7 @@ import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.Entity
 
 @Observable
-class Nota  extends Entity{
+class Nota  extends Entity implements Cloneable{
 	@Property String fecha
 	@Property String descripcion
 	@Property Boolean aprobado
@@ -13,6 +13,17 @@ class Nota  extends Entity{
 		fecha = fecha2
 		descripcion = desc
 		aprobado = aprob
+		
+	}
+	
+	def clonar(){
+		return this.clone() as Nota
+	}
+	
+	def copiarA(Nota destino) {
+		destino.fecha=fecha
+		destino.descripcion=descripcion
+		destino.aprobado=aprobado
 	}
 	
 }
