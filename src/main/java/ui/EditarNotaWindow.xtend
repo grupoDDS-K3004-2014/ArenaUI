@@ -21,12 +21,6 @@ class EditarNotaWindow extends Dialog<Nota> {
 
 	}
 
-	override def createMainTemplate(Panel mainPanel) {
-		title = "Editar nota"
-
-		super.createMainTemplate(mainPanel)
-	}
-
 	override protected void addActions(Panel actions) {
 
 		new Button(actions).setCaption("Aceptar").onClick[|this.accept].setAsDefault.disableOnError
@@ -38,7 +32,7 @@ class EditarNotaWindow extends Dialog<Nota> {
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-
+	title="Nota"
 		widgetFechaYDescripcion(mainPanel)
 
 		val panel3 = new Panel(mainPanel)

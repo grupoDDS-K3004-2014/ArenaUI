@@ -17,12 +17,10 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
-
 class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 
-	
 	new(WindowOwner parent) {
-		super(parent, new MateriaApplicationModel)	
+		super(parent, new MateriaApplicationModel)
 
 	}
 
@@ -34,6 +32,7 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 		super.createMainTemplate(mainPanel)
 
 		modelObject.conseguirMaterias()
+		modelObject.conseguirUbicaciones()
 
 	}
 
@@ -80,6 +79,10 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 
 		this.openDialog(new CrearMateriaWindow(this))
 	}
+	
+	def crearNota() {
+		this.openDialog(new CrearNotaWindow(this, new Nota))
+	}
 
 	def void editarNota() {
 
@@ -116,16 +119,10 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 		subPanel.setLayout(new ColumnLayout(2))
 		new Label(subPanel).setText("Ubicación materia:")
 		val selector = new Selector(subPanel)
-		selector.setWidth(140)
+		selector.setWidth(205)
 		selector.bindItemsToProperty("ubicaciones")
 		selector.bindValueToProperty("materiaSeleccionada.ubicacion")
-
-	/*val selectorUbicacion = new Selector<Ubicacion>(subPanel)
-		selectorUbicacion.allowNull(false)
-		selectorUbicacion.bindValueToProperty("materia.ubicacion")
-		var propiedadModelos = selectorUbicacion.bindItems(new ObservableProperty(homeUbicacion, "ubicaciones"
-		))
-		propiedadModelos.adapter = new PropertyAdapter(typeof(Ubicacion), "descripcionEntera")*/
+		
 	}
 
 	def crearWidgetProfesor(Panel panel) {
@@ -164,7 +161,7 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 		val subPanel = new Panel(panel)
 		subPanel.setLayout(new ColumnLayout(3))
 
-		new Button(subPanel).setCaption("+").onClick[|].setWidth(80)
+		new Button(subPanel).setCaption("+").onClick[|crearNota].setWidth(80)
 		new Button(subPanel).setCaption("-").onClick[|modelObject.eliminarNotaSeleccionada].setWidth(80).
 			bindEnabled(new NotNullObservable("notaSeleccionada"))
 
@@ -172,4 +169,7 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 			new NotNullObservable("notaSeleccionada"))
 
 	}
+	
+	
+	
 }

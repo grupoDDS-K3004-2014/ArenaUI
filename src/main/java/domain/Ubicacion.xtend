@@ -8,9 +8,7 @@ class Ubicacion extends Entity {
 	@Property String descripcion
 	@Property Integer nivel
 
-	new(String descrip, Integer nvl){
-		descripcion=descrip
-		nivel=nvl
+	def new2(String descripcion, Integer nivel) {
 	}
 
 	def getDescripcionEntera() {
@@ -20,4 +18,12 @@ class Ubicacion extends Entity {
 	override def toString() {
 		descripcionEntera
 	}
+
+	def static new2(String descripcion, int nivel) {
+		var ubicacion = new Ubicacion
+		ubicacion.descripcion = descripcion
+		ubicacion.nivel = nivel
+		return ubicacion
+	}
+
 }

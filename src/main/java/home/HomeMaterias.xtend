@@ -6,10 +6,9 @@ import org.uqbar.commons.model.CollectionBasedHome
 import java.util.List
 import org.apache.commons.collections15.Predicate;
 import org.uqbar.commons.model.UserException
-
 import java.util.ArrayList
 import domain.Nota
-import domain.Ubicacion
+
 
 @Observable
 class HomeMaterias extends CollectionBasedHome<Materia> {
@@ -20,15 +19,15 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 
 	def void init() {
 		var notas = new ArrayList
-		notas.add(new Nota("20/10/2014", "1 Parcial", true))
-		this.create("Algoritmos", "2004", false, "Sarlanga", "1c", notas,new Ubicacion("2do cuatrimestre", 1))
+		notas.add( Nota.new2("20/10/2014", "1 Parcial", true))
+		this.create("Algoritmos", "2004", false, "Sarlanga", notas, "1er cuatrimestre - Nivel 1")
 		notas = new ArrayList
-		notas.add(new Nota("30/12/2099", "Tp", true))
-		this.create("Fisica II", "2011", true, "Monzón", "A", notas,new Ubicacion("1er cuatrimestre", 1))
+		notas.add(Nota.new2("30/12/2099", "Tp", true))
+		this.create("Fisica II", "2011", true, "Monzón", notas, "1er cuatrimestre - Nivel 1")
 	}
 
 	def void create(String nombreMateria, String añoCursada2, Boolean finalAprobado2, String profesor2,
-		String ubicacion2, ArrayList<Nota> notas2,Ubicacion ubicacion) {
+		ArrayList<Nota> notas2, String ubicacion2) {
 		var materia = new Materia
 		materia.nombre = nombreMateria
 		materia.añoCursada = añoCursada2

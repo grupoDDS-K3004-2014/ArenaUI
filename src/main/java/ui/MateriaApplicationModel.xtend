@@ -8,26 +8,18 @@ import java.util.ArrayList
 import java.io.Serializable
 import domain.Materia
 import domain.Nota
-import domain.Ubicacion
-
 
 @Observable
 class MateriaApplicationModel implements Serializable {
 
 	@Property List<Materia> materias
+	@Property List<String> ubicaciones
 	@Property Materia materiaSeleccionada
 	@Property Nota notaSeleccionada
-	@Property ArrayList<Ubicacion> ubicaciones= new ArrayList
 
-	new(){
+	new() {
 		super()
-		ubicaciones.add(new Ubicacion("1er cuatrimestre", 1))
-		ubicaciones.add(new Ubicacion("2do cuatrimestre", 1))
-		ubicaciones.add(new Ubicacion("1er cuatrimestre", 2))
-		ubicaciones.add(new Ubicacion("2do cuatrimestre", 2))
-		ubicaciones.add(new Ubicacion("1er cuatrimestre", 3))
 	}
-	
 
 	def void conseguirMaterias() {
 		materias = new ArrayList<Materia>
@@ -48,6 +40,15 @@ class MateriaApplicationModel implements Serializable {
 		notaSeleccionada = null
 	}
 
-	def void agregarNota() {
+	def conseguirUbicaciones() {
+		this.ubicaciones = new ArrayList
+		ubicaciones.add("1er cuatrimestre - Nivel 1")
+		ubicaciones.add("1er cuatrimestre - Nivel 2")
+		ubicaciones.add("1er cuatrimestre - Nivel 3")
+		ubicaciones.add("2do cuatrimestre - Nivel 1")
+		ubicaciones.add("2do cuatrimestre - Nivel 2")
+		ubicaciones.add("2do cuatrimestre - Nivel 3")
+
 	}
+
 }

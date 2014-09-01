@@ -21,13 +21,20 @@ class Materia extends Entity {
 		}
 	}
 
-def eliminarNota(Nota nota) {
+	def eliminarNota(Nota nota) {
 		val notasAux = new ArrayList()
 		notasAux.addAll(notas)
 		notasAux.remove(nota)
 		notas = notasAux
 	}
-	
-	
+
+	def static initialize() {
+		var materiaNueva =new Materia
+		materiaNueva.añoCursada=""
+		materiaNueva.finalAprobado=false
+		materiaNueva.profesor=""
+		materiaNueva.ubicacion=""
+		return materiaNueva
+	}
 
 }

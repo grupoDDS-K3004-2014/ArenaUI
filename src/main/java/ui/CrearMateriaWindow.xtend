@@ -12,7 +12,7 @@ import home.HomeMaterias
 class CrearMateriaWindow extends Dialog<Materia> {
 
 	new(WindowOwner parent) {
-		super(parent, new Materia)
+		super(parent, Materia.initialize)
 	}
 
 	override def createMainTemplate(Panel mainPanel) {
