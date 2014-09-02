@@ -16,6 +16,7 @@ class MateriaApplicationModel implements Serializable {
 	@Property List<String> ubicaciones
 	@Property Materia materiaSeleccionada
 	@Property Nota notaSeleccionada
+	@Property ArrayList<Nota> notas
 
 	new() {
 		super()

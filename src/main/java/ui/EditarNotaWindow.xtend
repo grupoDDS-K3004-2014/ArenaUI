@@ -23,7 +23,7 @@ class EditarNotaWindow extends Dialog<Nota> {
 
 	override protected void addActions(Panel actions) {
 
-		new Button(actions).setCaption("Aceptar").onClick[|this.accept].setAsDefault.disableOnError
+		new Button(actions).setCaption("Aceptar").onClick[|modelObject.validate; this.accept].setAsDefault.disableOnError
 
 		new Button(actions).setCaption("Cancelar").onClick [ |
 			original.copiarA(this.modelObject)

@@ -9,6 +9,7 @@ class CrearNotaWindow extends EditarNotaWindow {
 		super(parent, model)
 	}
 
-	
-
+	override executeTask() {
+		super.executeTask()		
+	}
 }

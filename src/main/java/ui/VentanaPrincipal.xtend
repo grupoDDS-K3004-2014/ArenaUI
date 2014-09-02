@@ -78,10 +78,18 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 	def void crearMateria() {
 
 		this.openDialog(new CrearMateriaWindow(this))
+		
 	}
 	
-	def crearNota() {
-		this.openDialog(new CrearNotaWindow(this, new Nota))
+	def void crearNota() {
+		modelObject.notas = modelObject.materiaSeleccionada.notas
+		var nota = new Nota
+		nota.initialize
+		this.openDialog(new CrearNotaWindow(this, nota))
+		
+		if (nota.fecha != null){
+			modelObject.notas.add(nota)
+		}
 	}
 
 	def void editarNota() {
@@ -123,6 +131,7 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 		selector.bindItemsToProperty("ubicaciones")
 		selector.bindValueToProperty("materiaSeleccionada.ubicacion")
 		
+		
 	}
 
 	def crearWidgetProfesor(Panel panel) {
@@ -130,6 +139,7 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 		subPanel.setLayout(new ColumnLayout(2))
 		new Label(subPanel).setText("Profesor de cursada:")
 		new TextBox(subPanel).setWidth(145).bindValueToProperty("materiaSeleccionada.profesor")
+		
 	}
 
 	def crearWidgetAñoYFinal(Panel panel) {
@@ -146,6 +156,7 @@ class VentanaPrincipal extends SimpleWindow<MateriaApplicationModel> {
 	}
 
 	def crearWidgetNotas(Panel panel) {
+		
 
 		new Label(panel).setText("Notas de cursada:")
 

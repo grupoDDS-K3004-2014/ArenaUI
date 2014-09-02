@@ -36,5 +36,9 @@ class Materia extends Entity {
 		materiaNueva.ubicacion=""
 		return materiaNueva
 	}
+	
+	def void agregarNota(Nota nota) {
+		notas.add(nota)
+	}
 
 }
