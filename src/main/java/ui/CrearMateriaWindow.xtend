@@ -16,8 +16,8 @@ class CrearMateriaWindow extends Dialog<Materia> {
 	}
 
 	override def createMainTemplate(Panel mainPanel) {
-		title = "Agregar materia nueva"
-		taskDescription = "Ingrese el nombre de la materia nueva"
+		title = "Agregar materia"
+		taskDescription = "Ingrese el nombre de la nueva materia"
 		super.createMainTemplate(mainPanel)
 	}
 

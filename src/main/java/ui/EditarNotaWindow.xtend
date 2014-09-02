@@ -23,7 +23,8 @@ class EditarNotaWindow extends Dialog<Nota> {
 
 	override protected void addActions(Panel actions) {
 
-		new Button(actions).setCaption("Aceptar").onClick[|modelObject.validate; this.accept].setAsDefault.disableOnError
+		new Button(actions).setCaption("Aceptar").onClick[|modelObject.validate; this.accept].setAsDefault.
+			disableOnError
 
 		new Button(actions).setCaption("Cancelar").onClick [ |
 			original.copiarA(this.modelObject)
@@ -32,7 +33,7 @@ class EditarNotaWindow extends Dialog<Nota> {
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-	title="Nota"
+		title = "Editar nota"
 		widgetFechaYDescripcion(mainPanel)
 
 		val panel3 = new Panel(mainPanel)
